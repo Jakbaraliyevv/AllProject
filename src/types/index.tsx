@@ -3,3 +3,8 @@ export type FieldType = {
   password?: string;
   remember?: string;
 };
+
+export interface LoginType {
+  email?: string;
+  password?: string;
+}
