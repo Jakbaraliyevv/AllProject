@@ -6,6 +6,9 @@ import { FaShoppingCart } from "react-icons/fa";
 
 function Navbar() {
   const navigate = useNavigate();
+
+  const data: string = localStorage.getItem("token") || "";
+
   return (
     <section className="navbar">
       <div className="w-[90%] m-auto flex items-center justify-between py-2">
@@ -30,7 +33,9 @@ function Navbar() {
               <IoSearchOutline className="text-[29px] text-[#fff] font-bold " />
               <FaShoppingCart className="text-[29px] text-[#fff] font-bold " />
             </div>
-            <Button onClick={() => navigate("/auth")}>Sign In</Button>
+            <Button onClick={() => navigate("/auth")}>
+              {data ? "User" : "Sign In"}
+            </Button>
           </div>
         </div>
       </div>

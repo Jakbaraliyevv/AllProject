@@ -5,9 +5,9 @@ type NotificationType = string;
 const notificationApi = () => {
   const notify = ({ type }: { type: NotificationType }) => {
     switch (type) {
-      case "register":
-        return notification.success({
-          message: "Siz ro‘yxatdan muvaffaqiyatli o‘tdingiz",
+      case "error":
+        return notification.error({
+          message: "ILtimos barcha bo'shliqlarni to'ldiring",
         });
 
       default:
