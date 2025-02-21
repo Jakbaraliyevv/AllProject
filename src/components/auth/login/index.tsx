@@ -97,6 +97,13 @@ function Login() {
         >
           {loading ? <LoadingOutlined /> : "Login"}
         </button>
+
+        <h3
+          onClick={() => navigate("/verify")}
+          className="text-center mt-7 font-medium text-[#9c6559] cursor-pointer"
+        >
+          Forgot password
+        </h3>
       </form>
     </section>
   );

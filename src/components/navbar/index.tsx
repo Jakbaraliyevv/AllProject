@@ -34,7 +34,7 @@ function Navbar() {
               <FaShoppingCart className="text-[29px] text-[#fff] font-bold " />
             </div>
             <Button onClick={() => navigate("/auth")}>
-              {data ? "User" : "Sign In"}
+              {data ? "user" : "Sign In"}
             </Button>
           </div>
         </div>
