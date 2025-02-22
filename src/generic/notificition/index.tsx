@@ -5,9 +5,30 @@ type NotificationType = string;
 const notificationApi = () => {
   const notify = ({ type }: { type: NotificationType }) => {
     switch (type) {
-      case "error":
+      case "full":
         return notification.error({
           message: "ILtimos barcha bo'shliqlarni to'ldiring",
+        });
+      case "login":
+        return notification.success({
+          message: "Ro'yxatdan muvoffaqqiyatli o'tdingiz",
+        });
+
+      case "emaill":
+        return notification.success({
+          message: "Emailga tasdiqlash codi yuborildi!",
+        });
+      case "notEmail":
+        return notification.error({
+          message: "Email topilmadi!",
+        });
+      case "notEmail2":
+        return notification.error({
+          message: "Email yoki parol xato!",
+        });
+      case "forma":
+        return notification.error({
+          message: "Email formati noto'g'ri!",
         });
 
       default:

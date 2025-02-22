@@ -2,13 +2,14 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { LoginType } from "../../../types";
 import { useAxios } from "../../../hooks/axios";
-import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
+import notificationApi from "../../../generic/notificition";
 
 function Login() {
   const axios = useAxios();
   const navigate = useNavigate();
+  const notify = notificationApi();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const labelStyle = "text-[17px] font-medium text-[#9c6559]";
@@ -17,7 +18,10 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
   const getData = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -25,15 +29,18 @@ function Login() {
       email: email,
       password: password,
     };
-    setLoading(true);
 
     if (!email || !password) {
-      console.log(email, password, "eorr");
-      console.log("salom");
-      notification.error({
-        message: "Iltimos, barcha maydonlarni to‘ldiring!",
-      });
+      notify({ type: "full" });
+      return;
     }
+
+    if (!validateEmail(email)) {
+      notify({ type: "forma" });
+      return;
+    }
+    setLoading(true);
+
     axios({
       url: "/sign-in",
       method: "POST",
@@ -42,9 +49,13 @@ function Login() {
       .then((data) => {
         console.log(data.data, "data");
         localStorage.setItem("token", data.data.token);
+        notify({ type: "login" });
         navigate("/");
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error);
+        notify({ type: "notEmail2" });
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -99,7 +110,7 @@ function Login() {
         </button>
 
         <h3
-          onClick={() => navigate("/verify")}
+          onClick={() => navigate("/getemail")}
           className="text-center mt-7 font-medium text-[#9c6559] cursor-pointer"
         >
           Forgot password

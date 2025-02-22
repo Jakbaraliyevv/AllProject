@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import AuthComponents from "../components/auth";
 import Verify from "../components/auth/verify";
+import GetEmail from "../components/auth/getemail";
 
 const root = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const root = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthComponents />,
+  },
+  {
+    path: "/getemail",
+    element: <GetEmail />,
   },
   {
     path: "/verify",
