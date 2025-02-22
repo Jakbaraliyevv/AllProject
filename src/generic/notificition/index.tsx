@@ -30,6 +30,18 @@ const notificationApi = () => {
         return notification.error({
           message: "Email formati noto'g'ri!",
         });
+      case "errorCod":
+        return notification.error({
+          message: "Tasdiqlash codi xato!",
+        });
+      case "suscessverfy":
+        return notification.success({
+          message: "Cod to'gri!",
+        });
+      case "parol":
+        return notification.success({
+          message: "Parol yangilandi!",
+        });
 
       default:
         break;

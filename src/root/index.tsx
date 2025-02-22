@@ -3,6 +3,7 @@ import Home from "../pages/home";
 import AuthComponents from "../components/auth";
 import Verify from "../components/auth/verify";
 import GetEmail from "../components/auth/getemail";
+import ChangePassword from "../components/auth/changePassword";
 
 const root = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const root = createBrowserRouter([
   {
     path: "/verify",
     element: <Verify />,
+  },
+  {
+    path: "/changePassword",
+    element: <ChangePassword />,
   },
 ]);
 

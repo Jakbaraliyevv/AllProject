@@ -1,24 +1,41 @@
 import { Flex, Input } from "antd";
 import { useState } from "react";
-import { VerifyType } from "../../../types";
 import { useAxios } from "../../../hooks/axios";
+import notificationApi from "../../../generic/notificition";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 function Verify() {
   const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
   const axios = useAxios();
+  const notify = notificationApi();
+  const navigate = useNavigate();
   const getData = (e: React.FormEvent) => {
     e.preventDefault();
-    const data: VerifyType = {
-      code: code,
-    };
 
+    if (!code) {
+      notify({ type: "full" });
+      return;
+    }
+    setLoading(true);
     axios({
-      url: "verify",
+      url: "/verify",
       method: "POST",
-      data: data,
+      data: { code },
     })
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((data) => {
+        console.log(data);
+        notify({ type: "suscessverfy" });
+        navigate("/changePassword");
+      })
+      .catch((error) => {
+        console.log(error);
+        notify({ type: "errorCod" });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -31,17 +48,30 @@ function Verify() {
                 Tasdiqlash codini kiritig:
               </h2>
               <Flex gap="middle" align="flex-start" vertical>
-                <Input.OTP
-                  onChange={(value) => setCode(value)}
-                  style={{ width: "400px" }}
-                />
+                <Flex gap="middle" align="flex-start" vertical>
+                  <Input.OTP
+                    value={code}
+                    onChange={(value) => {
+                      console.log(value, "current code");
+                      setCode(value);
+                    }}
+                    style={{ width: "400px" }}
+                  />
+                </Flex>
               </Flex>
 
               <button
                 onClick={(e) => getData(e)}
-                className={`w-full bg-[#9c6559] text-[#FFF] p-1.5 rounded-[6px] mt-4 transition-all duration-300 `}
+                disabled={loading} // 🔥 loading bo'lsa tugma disable bo'ladi
+                className={`w-full bg-[#9c6559] text-[#FFF] p-1.5 rounded-[6px] mt-4 
+    transition-all duration-300 
+    ${
+      loading
+        ? "opacity-50 cursor-not-allowed"
+        : "hover:bg-[#854b41] opacity-100"
+    }`}
               >
-                Send
+                {loading ? <LoadingOutlined /> : "Send"}
               </button>
             </form>
           </div>

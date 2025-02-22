@@ -3,7 +3,7 @@ import axios from "axios";
 interface PropTypes {
   url: string;
   method?: "GET" | "POST" | "DELETE" | "PUT";
-  data?: object; // body emas, data ishlatiladi ✅
+  data?: object;
   headers?: object;
   params?: object;
 }
@@ -28,8 +28,7 @@ export const useAxios = () => {
         },
       });
 
-      console.log("Full Response:", res); // ✅ To‘liq response chiqariladi
-      return res.data; // ❌ `data.data` emas, backendni tekshirish kerak
+      return res.data;
     } catch (error) {
       console.error("Axios Xatolik:", error);
       throw error;
