@@ -21,7 +21,9 @@ function Navbar() {
     <section className="navbar">
       <div className="w-[90%] m-auto flex items-center justify-between py-2">
         <div>
-          <img src={logo} alt="" />
+          <Link to={"/"}>
+            <img src={logo} alt="" />
+          </Link>
         </div>
         <div className="flex items-center gap-[40px]">
           <Link className="text-[22px] font-medium text-[#fff]" to={"/"}>
@@ -54,8 +56,17 @@ function Navbar() {
           navigate("/auth");
         }}
         onCancel={() => setIsModalOpen(false)}
+        okButtonProps={{
+          style: {
+            backgroundColor: "#9c6559",
+            borderColor: "#9c6559",
+            color: "#fff",
+          },
+        }}
       >
-        <p>Haqiqatan ham tizimdan chiqishni xohlaysizmi?</p>
+        <p className="text-[15px]">
+          Haqiqatan ham tizimdan chiqishni xohlaysizmi?
+        </p>
       </Modal>
     </section>
   );
